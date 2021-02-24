@@ -2,14 +2,12 @@
 
 O teste consiste em 2 microserviços que possibilitam realizar uma consulta entre um médico e um paciente e gerar uma entrada financeira de cobrança da consulta.
 
-![alt text] https://user-images.githubusercontent.com/6026357/102815834-ce078500-43ab-11eb-9b10-3c27f3149365.png
-
-Restrições
+## Restrições
 Os serviços foram desenvolvidos em Python.
-TODO: Utilizar docker para provisionar os serviços.
+*TODO: Utilizar docker para provisionar os serviços.*
 Os serviços utilizam um banco de dados compartilhado.
 
-Serviço 1: API de consultas
+## Serviço 1: API de consultas
 Este serviço deve ter endpoints para iniciar e finalizar uma consulta. Uma consulta pode ser representada dessa forma:
 
 {
@@ -24,12 +22,52 @@ O valor da consulta é fixo R$ 200,00 por hora.
 
 TODO: Quando uma consulta é finalizada, deve ser realizada uma notificação para a criação de uma cobrança no serviço financeiro.
 
-TODO: Serviço 2: API financeira
+## Serviço 2: API financeira
 Este serviço deve realizar uma entrada financeira de cobrança para a consulta. Uma entrada de cobrança pode ser representada dessa forma:
 
 {
 	"appointment_id": "84ab6121-c4a8-4684-8cc2-b03024ec0f1d", # id da consulta
 	"total_price": 400.00,
 }
-Considerações
+
+## Considerações
 Caso a API financeira não esteja funcionando corretamente no momento da notificação de consulta finalizada, assim que ela subir, deve ser possível processar a entrada de cobrança. (Não pode perder o registro de cobrança).
+
+
+# STACK UTILIZADA
+Os serviços foram desenvolvidos utilizando:
+- Python
+- Flask
+- MongoDB
+- RabbitMQ
+
+# Arquitetura:
+- O **serviço 1** é uma API desenvolvida em Flask com 2 endpoints: /start e /end. 
+- Quando uma consulta é criada um novo registro é feito no mongoDB.
+- Quando uma consulta é finalizada este registro é atualizado com o valor calculado e uma mensagem é gerada no RabbitMQ.
+- A queue do RabbitMQ é consumida pelo **serviço 2**, que é desenvolvido em python e consulta a fila de 10 em 10 segundos.  
+
+# Documentação dos endpoints
+TODO 
+
+# COMO EXECUTAR O PROJETO
+Acesse o diretório raiz do projeto e execute o comando:
+```docker-compose up -d```
+
+A API será servida na porta 80.
+O RabbitMQ pode ser acessado na porta 15672 (usuário: guest, pass: guest)
+
+O banco de dados (mongoDB) é servido na porta 27888. 
+Para visualizar os dados utilizei o noSQLBooster. 
+
+# Referencias
+Algumas das referencias que utilizei para desenvolver o desafio:
+
+**Getting Started with Python Microservices in Flask**
+https://mikebridge.github.io/post/python-flask-kubernetes-1/ (partes 1, 2 e 3)
+
+**Background Processing With RabbitMQ, Python, and Flask**
+https://betterprogramming.pub/background-processing-with-rabbitmq-python-and-flask-5ca62acf409c
+
+**First steps with Docker: download and run MongoDB locally**
+https://www.code4it.dev/blog/run-mongodb-on-docker
