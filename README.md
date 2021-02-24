@@ -33,7 +33,6 @@ Este serviço deve realizar uma entrada financeira de cobrança para a consulta.
 ## Considerações
 Caso a API financeira não esteja funcionando corretamente no momento da notificação de consulta finalizada, assim que ela subir, deve ser possível processar a entrada de cobrança. (Não pode perder o registro de cobrança).
 
-
 # STACK UTILIZADA
 Os serviços foram desenvolvidos utilizando:
 - Python
@@ -50,7 +49,15 @@ Os serviços foram desenvolvidos utilizando:
 # Documentação dos endpoints
 TODO 
 
-# COMO EXECUTAR O PROJETO
+# TESTES
+Como executar os testes unitários do serviço 1:
+Iniciar containers rabbitMQ e mongoDB
+```docker run -d  --name mongo-on-docker  -p 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo```
+```docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:3-management```
+acessar diretório consulta/src  edigitar o comando:
+```python -m pytest -s```
+
+# COMO EXECUTAR O PROJETO (TODO)
 Acesse o diretório raiz do projeto e execute o comando:
 ```docker-compose up -d```
 
@@ -59,6 +66,12 @@ O RabbitMQ pode ser acessado na porta 15672 (usuário: guest, pass: guest)
 
 O banco de dados (mongoDB) é servido na porta 27888. 
 Para visualizar os dados utilizei o noSQLBooster. 
+
+### OBSERVAÇÃO
+Os dockers dos serviços não estão funcionando corretamente. Para executar o projeto executar os serviços 'na mão':
+Serviço 1: consulta
+acessar diretório src rodar o comando:
+python -m app.main
 
 # Referencias
 Algumas das referencias que utilizei para desenvolver o desafio:
