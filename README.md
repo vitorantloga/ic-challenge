@@ -39,6 +39,7 @@ Os serviços foram desenvolvidos utilizando:
 - Flask
 - MongoDB
 - RabbitMQ
+- Postman
 
 # Arquitetura:
 - O **serviço 1** é uma API desenvolvida em Flask com 2 endpoints: /start e /end. 
@@ -47,7 +48,37 @@ Os serviços foram desenvolvidos utilizando:
 - A queue do RabbitMQ é consumida pelo **serviço 2**, que é desenvolvido em python e consulta a fila de 10 em 10 segundos.  
 
 # Documentação dos endpoints
-TODO 
+**POST /start**
+Body: 
+```
+{
+	"physician_id": [],
+	"patient_id": [],
+	"start_date": []
+}
+```
+*exemplo*
+```
+{
+	"physician_id": "1",
+	"patient_id": "2",
+	"start_date": "2020-12-01 13:00:00"
+}
+```
+
+**POST /end**
+Body:
+```
+{
+	id: [id da consulta]
+}
+```
+*exemplo*
+```
+{
+	"id": "60369c3aefc05a4789267dcb"
+}
+```
 
 # TESTES
 Como executar os testes unitários do serviço 1:
