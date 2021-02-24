@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: 'rabbitmq'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  financeiro:
+    build: financeiro
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  consulta:
+    build: consulta
+    ports:
+      - 80:80
+
+  mongo:
+      image: 'mongo'
+      ports:
+        - '27888:27017'
