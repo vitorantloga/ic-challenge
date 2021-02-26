@@ -1,23 +1,36 @@
 version: '3'
 
 services:
-  rabbitmq:
-    image: 'rabbitmq'
+
+  consulta:
+    build: './consulta'
+    ports:
+      - 80:80
+    depends_on:
+      - rabbit
+      - mongo
+
+  # financeiro:
+  #   build: './financeiro'
+  #   depends_on:
+  #     - rabbit
+  #     - mongo
+
+  rabbit:
+    hostname: rabbit
+    image: 'rabbitmq:3-management'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
     ports:
       - '5672:5672'
       - '15672:15672'
 
-  financeiro:
-    build: financeiro
-    environment:
-      - PYTHONUNBUFFERED=1
-
-  consulta:
-    build: consulta
-    ports:
-      - 80:80
-
   mongo:
-      image: 'mongo'
-      ports:
-        - '27888:27017'
+    restart: always
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+
+
+

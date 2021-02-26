@@ -4,9 +4,9 @@ from bson.objectid import ObjectId
 class Database(object):
 
 	# URI = "mongodb+srv://vitor:123mudar@cluster0.c192b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-	URI = "mongodb://mongoadmin:secret@localhost:27888/?authSource=admin"
+	URI = "mongodb://mongo:27017"
 	DATABASE = None
-	COLLECTION = "test"
+	COLLECTION = "appointment"
 
 	def inicialize():
 		client = pymongo.MongoClient(Database.URI)

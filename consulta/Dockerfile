@@ -9,11 +9,10 @@ RUN pip3 install --upgrade pip
 WORKDIR /app
 
 # Copy our files into the current working directory WORKDIR
-COPY ./ ./
+COPY ./src/app ./app
+COPY ./src/uwsgi.ini ./
+COPY ./src/mypkg ./mypkg
+COPY ./requirements.txt ./
 
 # install our dependencies
 RUN  pip3 install -r requirements.txt
-
-CMD ["python3", "-m", "main"]
-
-EXPOSE 80
