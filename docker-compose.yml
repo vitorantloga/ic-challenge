@@ -10,11 +10,11 @@ services:
       - rabbit
       - mongo
 
-  # financeiro:
-  #   build: './financeiro'
-  #   depends_on:
-  #     - rabbit
-  #     - mongo
+  financeiro:
+    build: './financeiro'
+    depends_on:
+      - rabbit
+      - mongo
 
   rabbit:
     hostname: rabbit

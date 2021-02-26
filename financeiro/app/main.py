@@ -10,7 +10,7 @@ time.sleep(30)
 print(' [*] Connecting to server ...')
 # register a RabbitMQ message
 credentials = pika.PlainCredentials('guest', 'guest')
-parameters = pika.ConnectionParameters('localhost', 5672, '/', credentials)
+parameters = pika.ConnectionParameters('rabbit', 5672, '/', credentials)
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 channel.queue_declare(queue='finalcial_queue', durable=True)

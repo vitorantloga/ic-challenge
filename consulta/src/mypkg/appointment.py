@@ -52,7 +52,7 @@ def end_appointment(item_id):
 
 		# register a RabbitMQ message
 		credentials = pika.PlainCredentials('guest', 'guest')
-		parameters = pika.ConnectionParameters('localhost', 5672, '/', credentials)
+		parameters = pika.ConnectionParameters('rabbit', 5672, '/', credentials)
 		connection = pika.BlockingConnection(parameters)
 		channel = connection.channel()
 		channel.queue_declare(queue='financial_queue', durable=True)
